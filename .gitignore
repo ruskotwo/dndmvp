@@ -1,0 +1,4 @@
+/web/build
+/web/node_modules
+.idea
+/configs/config.yml
