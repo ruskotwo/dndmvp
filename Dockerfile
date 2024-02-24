@@ -4,6 +4,8 @@ RUN mkdir /app
 ADD . /app
 WORKDIR /app/web
 
+RUN npm install react-scripts
+
 RUN npm run build
 
 FROM golang:alpine
