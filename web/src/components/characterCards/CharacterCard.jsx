@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./CharacterCard.css";
 import Collapsible from "../Collapsible/Collapsible";
 import ItemCard from "../itemCard/ItemCard";
@@ -7,10 +7,16 @@ import AttributeTable from "../attributeTable/AttributeTable";
 export default function CharacterCard(props) {
     const [open, setOpen] = useState(false);
     const [notes, setNotes] = useState('');
+    const [mounted, setMounted] = useState(false); // Состояние для отслеживания монтирования компонента
 
     useEffect(() => {
+        setMounted(true); // Установка флага монтирования компонента в true при монтировании
         const savedNotes = localStorage.getItem(`playerNotes_${props.character.id}`);
         setNotes(savedNotes || '');
+
+        return () => {
+            setMounted(false); // Установка флага монтирования компонента в false при размонтировании
+        };
     }, [props.character.id]);
 
     const toggle = () => {
@@ -23,13 +29,15 @@ export default function CharacterCard(props) {
         localStorage.setItem(`playerNotes_${props.character.id}`, value);
     };
 
+    if (!mounted) return null; // Если компонент еще не смонтирован, возвращаем null
+
     return (
         <div className="character-card-container">
             <div onClick={toggle} className="character-card-character">
                 <div className="character-card-avatar"/>
                 <div className="character-card-title-and-supporting">
                     <div className="title">{props.character.name}</div>
-                    <div className="des">{props.character.desc}</div>
+                    <div className="des">{props.character.description}</div>
                 </div>
                 <img className='Collapsible-chevron' src="/icon/chevron-down20px.svg" alt=""
                      style={{transform: open ? 'rotate(0deg)' : 'rotate(-90deg)'}}/>
@@ -65,11 +73,11 @@ export default function CharacterCard(props) {
                 </div>
             </div>
             <div className="character-card-detailed-information" style={{display: open ? 'block' : 'none'}}>
-                <Collapsible label='Атрибуты'>
-                    <AttributeTable character={props.character}/>
+                <Collapsible key="attributes" label='Атрибуты'>
+                    <AttributeTable key="attributeTable" character={props.character}/>
                 </Collapsible>
-                <Collapsible label='Инвентарь'>
-                    {props.items.map(item => <ItemCard item={item}/>)}
+                <Collapsible key="inventory" label='Инвентарь'>
+                    {props.items.map(item => <ItemCard key={item.id} item={item}/>)}
                 </Collapsible>
                 <Collapsible label='Заметки'>
                     <textarea
