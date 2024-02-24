@@ -1,0 +1,29 @@
+.tabbed-view {
+    display: flex;
+    flex-direction: column;
+}
+
+.tabbed-view-tabs {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    margin-bottom: 12px;
+}
+
+.tabbed-view-tab {
+    padding: 24px 0;
+    margin-right: 12px;
+    color: white;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.tabbed-view-tab.active::after {
+    content: '';
+    display: block;
+    height: 3px;
+    background-color: white;
+    width: 100%;
+    position: relative;
+    bottom: -5px;
+}

@@ -1,0 +1,37 @@
+.item-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid #1F242F;
+    background-color: #161B26;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 14px;
+    line-height: 20px; /* 143% of 14px */
+    margin-bottom: 12px;
+}
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.item-name,
+.item-count {
+    color: var(--1-color-modes-colors-text-text-secondary-700);
+    font-family: var(--text-sm-medium-font-family);
+    font-size: var(--text-sm-medium-font-size);
+    font-style: var(--text-sm-medium-font-style);
+    font-weight: var(--text-sm-medium-font-weight);
+    letter-spacing: var(--text-sm-medium-letter-spacing);
+    line-height: var(--text-sm-medium-line-height);
+    margin: 0; /* Resetting margin for <h3> and <p> */
+}
+.item-description {
+    margin: 0;color: var(--1-color-modes-colors-text-text-tertiary-600);
+    font-family: var(--text-sm-regular-font-family);
+    font-size: var(--text-sm-regular-font-size);
+    font-style: var(--text-sm-regular-font-style);
+    font-weight: var(--text-sm-regular-font-weight);
+    letter-spacing: var(--text-sm-regular-letter-spacing);
+    line-height: var(--text-sm-regular-line-height);
+}
