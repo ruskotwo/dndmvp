@@ -14,7 +14,7 @@ export default function Collapsible(props) {
             <div onClick={toggle} className="collapsible-title">
                 <div className="Collapsible-text">{props.label}</div>
                 <img className='Collapsible-chevron' src="/icon/chevron-down20px.svg" alt=""
-                     style={{transform: open ? 'rotate(0deg)' : 'rotate(-90deg)'}}/>
+                     style={{transform: open ? 'rotate(-90deg)' : 'rotate(0deg)'}}/>
             </div>
 
             <div className="Collapsible-content-parent" ref={contentRef}

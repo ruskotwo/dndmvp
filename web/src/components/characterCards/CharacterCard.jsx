@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "./CharacterCard.css";
 import Collapsible from "../Collapsible/Collapsible";
 import ItemCard from "../itemCard/ItemCard";
@@ -6,9 +6,21 @@ import AttributeTable from "../attributeTable/AttributeTable";
 
 export default function CharacterCard(props) {
     const [open, setOpen] = useState(false);
+    const [notes, setNotes] = useState('');
+
+    useEffect(() => {
+        const savedNotes = localStorage.getItem(`playerNotes_${props.character.id}`);
+        setNotes(savedNotes || '');
+    }, [props.character.id]);
 
     const toggle = () => {
         setOpen(!open);
+    };
+
+    const handleChange = (event) => {
+        const value = event.target.value;
+        setNotes(value);
+        localStorage.setItem(`playerNotes_${props.character.id}`, value);
     };
 
     return (
@@ -60,7 +72,12 @@ export default function CharacterCard(props) {
                     {props.items.map(item => <ItemCard item={item}/>)}
                 </Collapsible>
                 <Collapsible label='Заметки'>
-                    <textarea placeholder="Ваши мысли об игроке" className='detailed-information-textatea'/>
+                    <textarea
+                        placeholder="Ваши мысли об игроке"
+                        className='detailed-information-textatea'
+                        value={notes}
+                        onChange={handleChange}
+                    />
                 </Collapsible>
             </div>
         </div>
