@@ -381,7 +381,7 @@
                 return;
             }
 
-            ws = new WebSocket('wss://' + window.location.host + '/ws/master?pass=' + gamePass);
+            ws = new WebSocket('wss://' + window.location.host + ':4000/ws/master?pass=' + gamePass);
 
             ws.onopen = function () {
                 console.log('Open');
