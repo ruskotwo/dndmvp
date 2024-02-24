@@ -5,9 +5,18 @@ import TabbedView from "./components/tabbedView/TabbedView";
 import CharacterCard from "./components/characterCards/CharacterCard";
 import ItemCard from "./components/itemCard/ItemCard";
 import Collapsible from "./components/Collapsible/Collapsible";
+import { handleAllData } from "./websocketHandlers/allDataHandler";
+import { handleUpdateCharacter } from "./websocketHandlers/updateCharacterHandler";
+import { handleCreateCharacter } from "./websocketHandlers/createCharacterHandler";
+import { handleDeleteCharacter } from "./websocketHandlers/deleteCharacterHandler";
+import { handleCreateItem } from "./websocketHandlers/createItemHandler";
+import { handleUpdateItem } from "./websocketHandlers/updateItemHandler";
+import { handleDeleteItem } from "./websocketHandlers/deleteItemHandler";
+import { handleUpdateGame } from "./websocketHandlers/handleUpdateGame";
 
 export default class App extends React.Component {
     ws = null;
+    mounted = false;
 
     constructor(props) {
         super(props);
@@ -17,6 +26,14 @@ export default class App extends React.Component {
         this.initWS();
     }
 
+    componentDidMount() {
+        this.mounted = true;
+    }
+
+    componentWillUnmount() {
+        this.mounted = false;
+    }
+
     initWS() {
         if (this.ws) {
             return;
@@ -24,104 +41,78 @@ export default class App extends React.Component {
 
         this.ws = new WebSocket("wss://4204-2a00-1370-8198-872d-91c8-ce55-9c03-b247.ngrok-free.app/ws/game");
 
-        this.ws.onopen = function () {
-            console.log("Open");
-        };
-        this.ws.onclose = () => {
-            console.log("Close");
-            this.ws = null;
-            setTimeout(() => this.initWS(), 10000);
-        };
-        this.ws.onmessage = (raw) => {
-            let evt = JSON.parse(raw.data)
-
-            switch (evt.type) {
-                case 'allData':
-                    if (evt.data && evt.data.game && evt.data.items && evt.data.characters) {
-                        this.setState({
-                            game: evt.data.game,
-                            items: evt.data.items,
-                            characters: evt.data.characters,
-                        });
-                    }
-                    return;
-                case 'updateCharacter':
-                    const updatedStat = evt.data;
-                    if (!updatedStat || typeof updatedStat !== 'object' || !updatedStat.id || !updatedStat.key || !updatedStat.value) {
-                        console.error('Invalid data received for character update:', updatedStat);
-                        return; // Прерываем выполнение обработчика, если данные некорректные
-                    }
-
-                    // Находим персонажа, которому принадлежит обновленная статистика
-                    const updatedCharacter = this.state.characters.find(character => character.id === updatedStat.id);
-                    if (!updatedCharacter) {
-                        console.error('Character not found for id:', updatedStat.id);
-                        return; // Прерываем выполнение обработчика, если персонаж не найден
-                    }
-
-                    // Обновляем соответствующую характеристику персонажа
-                    updatedCharacter[updatedStat.key] = updatedStat.value;
-
-                    // Обновляем состояние, чтобы отобразить изменения
-                    this.setState(prevState => ({
-                        characters: prevState.characters.map(character =>
-                            character.id === updatedCharacter.id ? updatedCharacter : character
-                        )
-                    }));
-                    return;
-                case 'createCharacter':
-                    const newCharacter = evt.data;
-                    if (!newCharacter || typeof newCharacter !== 'object' || !newCharacter.id) {
-                        console.error('Invalid data for creating character:', newCharacter);
-                        return; // Прерываем выполнение метода, если данные некорректные
-                    }
-
-                    // Проверяем, что персонаж с таким ID еще не существует
-                    if (this.state.characters.find(character => character.id === newCharacter.id)) {
-                        console.error('Character with ID already exists:', newCharacter.id);
-                        return; // Прерываем выполнение метода, если персонаж уже существует
-                    }
-
-                    // Добавляем нового персонажа в массив персонажей в состоянии
-                    this.setState(prevState => ({
-                        characters: [...prevState.characters, newCharacter]
-                    }));
-                    return;
-                case 'deleteCharacter':
-                    const characterId = evt.data;
-                    if (!characterId) {
-                        console.error('Invalid character id:', characterId);
-                        return; // Прерываем выполнение метода, если id некорректный
-                    }
-
-                    // Проверяем, существует ли персонаж с таким id
-                    const characterToDelete = this.state.characters.find(character => character.id === characterId);
-                    if (!characterToDelete) {
-                        console.error('Character with id not found:', characterId);
-                        return; // Прерываем выполнение метода, если персонаж не найден
-                    }
-
-                    // Фильтруем массив персонажей, оставляя только те, у которых id не совпадает с characterId
-                    const updatedCharacters = this.state.characters.filter(character => character.id !== characterId);
-
-                    // Обновляем состояние, чтобы удалить персонажа из списка
-                    this.setState({
-                        characters: updatedCharacters
-                    });
-                    return;
-                default:
-                    return;
-            }
-        };
-        this.ws.onerror = function (evt) {
-            console.log("Error: " + evt.data);
-        };
+        this.ws.onopen = this.onWSOpen;
+        this.ws.onclose = this.onWSClose;
+        this.ws.onmessage = this.onWSMessage;
+        this.ws.onerror = this.onWSError;
     }
+
+    onWSOpen = () => {
+        console.log("Open");
+    };
+
+    onWSClose = () => {
+        console.log("Close");
+        this.ws = null;
+        setTimeout(this.initWS, 10000);
+    };
+
+    onWSError = (evt) => {
+        console.log("Error: " + evt.data);
+    };
+
+    onWSMessage = (raw) => {
+        let evt = JSON.parse(raw.data);
+        switch (evt.type) {
+            case 'allData':
+                if (this.mounted) {
+                    handleAllData(evt.data, this.setState.bind(this));
+                }
+                return;
+            case 'updateCharacter':
+                if (this.mounted) {
+                    handleUpdateCharacter(evt.data, this.state, this.setState.bind(this));
+                }
+                return;
+            case 'createCharacter':
+                if (this.mounted) {
+                    handleCreateCharacter(evt.data, this.state, this.setState.bind(this));
+                }
+                return;
+            case 'deleteCharacter':
+                if (this.mounted) {
+                    handleDeleteCharacter(evt.data, this.state, this.setState.bind(this));
+                }
+                return;
+            case 'createItem':
+                if (this.mounted) {
+                    handleCreateItem(evt.data, this.state, this.setState.bind(this));
+                }
+                return;
+            case 'updateItem':
+                if (this.mounted) {
+                    handleUpdateItem(evt.data, this.state, this.setState.bind(this));
+                }
+                return;
+            case 'deleteItem':
+                if (this.mounted) {
+                    handleDeleteItem(evt.data, this.state, this.setState.bind(this));
+                }
+                return;
+            case 'updateGame':
+                if (this.mounted) {
+                    handleUpdateGame(evt.data, this.state, this.setState.bind(this));
+                }
+                return;
+            default:
+                return;
+        }
+    };
 
     render() {
         const tabs = [{
             label: "Описание", content: (<p className="game-content-description">
-                {this.state.game.desc === null ? "Описание отсутствует" : this.state.game.desc}
+                {this.state.game.description === null ? "Описание отсутствует" : this.state.game.description}
             </p>),
         }, {
             label: "Карта", content: (<div>
@@ -129,26 +120,28 @@ export default class App extends React.Component {
             </div>),
         }, {
             label: "Инвентарь & Персонажи", content: (<div>
-                <Collapsible label='Инвентарь гильдии'>
-                    {this.state.items.map((item) => item.ownerId === 0 ? <ItemCard item={item}/> : null)}
+                <Collapsible key="inventoryGuild" label='Инвентарь гильдии'>
+                    {this.state.items.map((item, index) => item.ownerId === 0 ? <ItemCard key={index} item={item}/> : null)}
                 </Collapsible>
-                <Collapsible label='Персонажи'>
-                    {this.state.characters.map((character) => (
-                        character.name && character.name.trim() !== "" && ( // Проверяем, что имя не пустое
+                <Collapsible key="characters" label='Персонажи'>
+                    {this.state.characters.map((character, index) => (
+                        character.name && character.name.trim() !== "" && (
                             <CharacterCard
+                                key={index}
                                 items={this.state.items.filter((item) => item.ownerId === character.id)}
                                 character={character}
                             />
                         )
                     ))}
                 </Collapsible>
-            </div>),
+            </div>)
         }, {
             label: "Боссы", content: (<div>
                 <h1 style={{color: '#fff'}}>Тут будут Боссы, но мы их не сделали</h1>
             </div>),
         }, {
-            label: "Нейтральные персонажи", content: (<div>
+            label: "Нейтральные персонажи",
+            content: (<div>
                 <h1 style={{color: '#fff'}}>Тут будут Нейтральные персонажи, но мы их не сделали</h1>
             </div>),
         },];
