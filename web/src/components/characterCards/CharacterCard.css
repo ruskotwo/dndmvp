@@ -33,6 +33,7 @@
     height: 48px;
     position: relative;
     width: 48px;
+    display: none;
 }
 
 .character-card .character-card-content {

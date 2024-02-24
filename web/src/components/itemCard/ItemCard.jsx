@@ -8,7 +8,7 @@ export default function ItemCard(props) {
                 <h3 className="item-name">{props.item.name}</h3>
                 <p className="item-count">x{props.item.count}</p>
             </header>
-            <p className="item-description">{props.item.desc}</p>
+            <p className="item-description">{props.item.description}</p>
         </article>
     );
 }
