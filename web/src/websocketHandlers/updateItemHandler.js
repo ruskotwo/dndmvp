@@ -5,11 +5,18 @@ export const handleUpdateItem = (data, state, setState) => {
         return;
     }
 
+    // Преобразование строки в число для поля count и ownerId
+    let processedValue = updatedItem.value;
+    if (updatedItem.key === 'count' || updatedItem.key === 'ownerId') {
+        processedValue = parseInt(updatedItem.value, 10);
+    }
+
+    // Обновление значения в зависимости от ключа
     const updatedItems = state.items.map(item => {
         if (item.id === updatedItem.id) {
             return {
                 ...item,
-                [updatedItem.key]: updatedItem.value
+                [updatedItem.key]: processedValue
             };
         } else {
             return item;
