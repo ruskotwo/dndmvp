@@ -302,8 +302,33 @@
                         })
                     }
                 });
+
                 note.addEventListener('change', event => {
                     localStorage.setItem('character-note-' + data.id, event.target.value)
+                });
+
+                const health = character.getElementsByClassName('character-health')[0]
+                const healthDiff = character.getElementsByClassName('character-healthDiff')[0]
+                healthDiff.addEventListener('keyup', function (e) {
+                    if (!/^-?\d{1,3}$/.test(healthDiff.value)) {
+                        healthDiff.classList.add('is-invalid');
+                        return;
+                    }
+
+                    healthDiff.classList.remove('is-invalid');
+
+                    if (e.key === 'Enter') {
+                        health.value = Number(health.value) + Number(healthDiff.value);
+                        healthDiff.value = '';
+                        sendWS({
+                            type: 'updateCharacter',
+                            data: {
+                                id: data.id,
+                                key: 'health',
+                                value: health.value
+                            }
+                        })
+                    }
                 });
             }
         }
@@ -381,7 +406,7 @@
                 return;
             }
 
-            ws = new WebSocket('ws://' + window.location.host + '/ws/master?pass=' + gamePass);
+            ws = new WebSocket('ws://dnd.igc.su:4000/ws/master?pass=' + gamePass);
 
             ws.onopen = function () {
                 console.log('Open');
