@@ -35,12 +35,12 @@ ul{
 .game-content-description{
   margin: 0 0 12px;
   color: white;
-  font-family: var(--text-xs-medium-font-family);
-  font-size: var(--text-xs-medium-font-size);
-  font-style: var(--text-xs-medium-font-style);
-  font-weight: var(--text-xs-medium-font-weight);
-  letter-spacing: var(--text-xs-medium-letter-spacing);
-  line-height: var(--text-xs-medium-line-height);
+  font-family: var(--text-sm-medium-font-family);
+  font-size: var(--text-sm-medium-font-size);
+  font-style: var(--text-sm-medium-font-style);
+  font-weight: var(--text-sm-medium-font-weight);
+  letter-spacing: var(--text-sm-medium-letter-spacing);
+  line-height: var(--text-sm-medium-line-height);
   white-space: pre-wrap;
 }
 
