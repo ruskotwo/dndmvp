@@ -1,5 +1,5 @@
 /*style*/
-.character-card {
+.character-card-container {
     align-items: flex-start;
     background-color: var(--1-color-modes-colors-background-bg-secondary);
     border: 1px solid;
@@ -11,11 +11,13 @@
     padding: var(--3-spacing-spacing-md);
     position: relative;
     margin-bottom: 12px;
+    height: auto;
 }
 
-.character-card .cards-content {
+.character-card-character {
     align-items: flex-start;
     align-self: stretch;
+    justify-content: space-between;
     display: flex;
     flex: 0 0 auto;
     gap: 12px;
@@ -23,7 +25,7 @@
     width: 100%;
 }
 
-.character-card .avatar {
+.character-card-avatar {
     background-color: #934141;
     background-position: 50% 50%;
     background-size: cover;
@@ -33,7 +35,7 @@
     width: 48px;
 }
 
-.character-card .content {
+.character-card .character-card-content {
     align-items: flex-start;
     align-self: stretch;
     display: flex;
@@ -44,17 +46,16 @@
     position: relative;
 }
 
-.character-card .title-and-supporting {
+.character-card-title-and-supporting {
     align-items: flex-start;
     align-self: stretch;
     display: flex;
-    flex: 0 0 auto;
+    flex: 1 0 auto;
     flex-direction: column;
     position: relative;
-    width: 100%;
 }
 
-.character-card .title {
+.character-card-title-and-supporting .title {
     color: var(--1-color-modes-colors-text-text-secondary-700);
     font-family: var(--text-sm-medium-font-family);
     font-size: var(--text-sm-medium-font-size);
@@ -68,7 +69,7 @@
     width: fit-content;
 }
 
-.character-card .des {
+.character-card-title-and-supporting .des {
     align-self: stretch;
     color: var(--1-color-modes-colors-text-text-tertiary-600);
     font-family: var(--text-sm-regular-font-family);
@@ -80,7 +81,7 @@
     position: relative;
 }
 
-.character-card .favorite-icon-stat {
+.character-card-favorite-icon-stat {
     align-items: center;
     display: inline-flex;
     flex: 0 0 auto;
@@ -88,7 +89,7 @@
     position: relative;
 }
 
-.character-card .div {
+.stat {
     align-items: center;
     display: inline-flex;
     flex: 0 0 auto;
@@ -96,13 +97,13 @@
     position: relative;
 }
 
-.character-card .img {
+.character-card-container .img {
     height: 16px;
     position: relative;
     width: 16px;
 }
 
-.character-card .text {
+.character-card-container .text {
     color: var(--1-color-modes-colors-text-text-secondary-700);
     font-family: var(--text-sm-regular-font-family);
     font-size: var(--text-sm-regular-font-size);
@@ -115,79 +116,22 @@
     white-space: nowrap;
     width: fit-content;
 }
-
-
-
-
-/*var*/
-:root {
-    --1-color-modes-colors-background-bg-secondary: var(--primitives-colors-gray-light-mode-50);
-    --1-color-modes-colors-border-border-primary: var(--primitives-colors-gray-light-mode-300);
-    --1-color-modes-colors-border-border-secondary: var(--primitives-colors-gray-light-mode-200);
-    --1-color-modes-colors-foreground-fg-success-secondary: var(--primitives-colors-success-500);
-    --1-color-modes-colors-text-text-secondary-700: var(--primitives-colors-gray-light-mode-700);
-    --1-color-modes-colors-text-text-tertiary-600: var(--primitives-colors-gray-light-mode-600);
-    --1-color-modes-component-colors-components-avatars-avatar-contrast-border: rgba(0, 0, 0, 0.08);
-    --2-radius-radius-full: 9999px;
-    --2-radius-radius-md: 8px;
-    --3-spacing-spacing-lg: var(--primitives-spacing-3-12px);
-    --3-spacing-spacing-md: var(--primitives-spacing-2-8px);
-    --primitives-colors-gray-dark-mode-300: rgba(206, 207, 210, 1);
-    --primitives-colors-gray-dark-mode-400: rgba(148, 150, 156, 1);
-    --primitives-colors-gray-dark-mode-700: rgba(51, 55, 65, 1);
-    --primitives-colors-gray-dark-mode-800: rgba(31, 36, 47, 1);
-    --primitives-colors-gray-dark-mode-900: rgba(22, 27, 38, 1);
-    --primitives-colors-gray-light-mode-200: rgba(234, 236, 240, 1);
-    --primitives-colors-gray-light-mode-300: rgba(208, 213, 221, 1);
-    --primitives-colors-gray-light-mode-50: rgba(249, 250, 251, 1);
-    --primitives-colors-gray-light-mode-600: rgba(71, 84, 103, 1);
-    --primitives-colors-gray-light-mode-700: rgba(52, 64, 84, 1);
-    --primitives-colors-success-400: rgba(71, 205, 137, 1);
-    --primitives-colors-success-500: rgba(23, 178, 106, 1);
-    --primitives-spacing-2-8px: 8px;
-    --primitives-spacing-3-12px: 12px;
-    --text-sm-medium-font-family: "Inter", Helvetica;
-    --text-sm-medium-font-size: 14px;
-    --text-sm-medium-font-style: normal;
-    --text-sm-medium-font-weight: 500;
-    --text-sm-medium-letter-spacing: 0px;
-    --text-sm-medium-line-height: 20px;
-    --text-sm-regular-font-family: "Inter", Helvetica;
-    --text-sm-regular-font-size: 14px;
-    --text-sm-regular-font-style: normal;
-    --text-sm-regular-font-weight: 400;
-    --text-sm-regular-letter-spacing: 0px;
-    --text-sm-regular-line-height: 20px;
+.character-card-detailed-information{
+    width: 100%;
 }
+.detailed-information-textatea{
 
-/*
-
-To enable a theme in your HTML, simply add one of the following data attributes to an HTML element, like so:
-
-<body data-1-color-modes-mode="light-mode">
-    <!-- the rest of your content -->
-</body>
-
-You can apply the theme on any DOM node, not just the `body`
-
-*/
-
-[data-1-color-modes-mode="light-mode"] {
-    --1-color-modes-colors-background-bg-secondary: var(--primitives-colors-gray-light-mode-50);
-    --1-color-modes-colors-border-border-primary: var(--primitives-colors-gray-light-mode-300);
-    --1-color-modes-colors-border-border-secondary: var(--primitives-colors-gray-light-mode-200);
-    --1-color-modes-colors-foreground-fg-success-secondary: var(--primitives-colors-success-500);
-    --1-color-modes-colors-text-text-secondary-700: var(--primitives-colors-gray-light-mode-700);
-    --1-color-modes-colors-text-text-tertiary-600: var(--primitives-colors-gray-light-mode-600);
-    --1-color-modes-component-colors-components-avatars-avatar-contrast-border: rgba(0, 0, 0, 0.08);
 }
-
-[data-1-color-modes-mode="dark-mode"] {
-    --1-color-modes-colors-background-bg-secondary: var(--primitives-colors-gray-dark-mode-900);
-    --1-color-modes-colors-border-border-primary: var(--primitives-colors-gray-dark-mode-700);
-    --1-color-modes-colors-border-border-secondary: var(--primitives-colors-gray-dark-mode-800);
-    --1-color-modes-colors-foreground-fg-success-secondary: var(--primitives-colors-success-400);
-    --1-color-modes-colors-text-text-secondary-700: var(--primitives-colors-gray-dark-mode-300);
-    --1-color-modes-colors-text-text-tertiary-600: var(--primitives-colors-gray-dark-mode-400);
-    --1-color-modes-component-colors-components-avatars-avatar-contrast-border: rgba(255, 255, 255, 0.12);
+.detailed-information-textatea {
+    box-sizing: border-box;
+    width: 100%;
+    background-color: var(--1-color-modes-colors-background-bg-primary);
+    border: 1px solid;
+    border-color: var(--1-color-modes-colors-border-border-secondary);
+    border-radius: var(--2-radius-radius-md);
+    min-height: 150px;
+    padding: 8px;
+    color: white;
+    overflow-x: hidden;
+    overflow-y: auto;
 }

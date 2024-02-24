@@ -1,0 +1,43 @@
+.collapsible-title {
+    align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 12px;
+}
+.Collapsible-text {
+    color: #fff;
+}
+
+.title .Collapsible-chevron {
+    height: 20px;
+    position: relative;
+    width: 20px;
+    transition: transform ease 0.1s; /* добавлено свойство анимации для чеврона */
+}
+
+.title.open .Collapsible-chevron {
+    transform: rotate(90deg); /* Поворот чеврона при открытом состоянии */
+}
+
+.content-parent {
+    overflow: hidden;
+    transition: height ease 0.1s; /* добавлено свойство анимации для высоты */
+    transform-origin: top;
+}
+
+.content-parent.open {
+    transition: height ease 0.1s; /* убираем transition для transform, чтобы он не мешал */
+}
+
+.content-parent.open .content-CharacterCard {
+    transform: translateY(0%);
+    transition: transform ease 0.1s;
+}
+
+.content-CharacterCard {
+    transform: translateY(-100%);
+    transition: transform ease 0.1s;
+}
+
+
