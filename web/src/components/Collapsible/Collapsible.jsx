@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./Collapsible.css";
+import chevronDown from '../../icons/chevron-down20px.svg'
 
 export default function Collapsible(props) {
     const [open, setOpen] = useState(false);
@@ -24,7 +25,7 @@ export default function Collapsible(props) {
         <div className='Collapsible-container'>
             <div onClick={toggle} className="collapsible-title">
                 <div className="Collapsible-text">{props.label}</div>
-                <img className='Collapsible-chevron' src="/icon/chevron-down20px.svg" alt=""
+                <img className='Collapsible-chevron' src={chevronDown} alt=""
                      style={{transform: open ? 'rotate(-90deg)' : 'rotate(0deg)'}}/>
             </div>
 

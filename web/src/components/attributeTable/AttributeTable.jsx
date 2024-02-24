@@ -1,5 +1,15 @@
 import React from "react";
 import './AttributeTable.css'
+import iconStrength from '../../icons/cryptocurrency-02.svg'
+import iconDexterity from '../../icons/cryptocurrency-01.svg'
+import iconIntelligence from '../../icons/cryptocurrency-00.svg'
+import iconConstitution from '../../icons/user-01.svg'
+import iconWisdom from '../../icons/graduation-hat-01.svg'
+import iconCharisma from '../../icons/face-happy.svg'
+import iconGold from '../../icons/coins-stacked-02.svg'
+import iconMetaCoins from '../../icons/coins-hand.svg'
+import iconArmor from '../../icons/shield-01.svg'
+import iconHealth from '../../icons/heart.svg'
 
 const StatItem = ({ imageSrc, altText, statName, statValue }) => (
     <div className="stat-item">
@@ -14,61 +24,61 @@ const StatItem = ({ imageSrc, altText, statName, statValue }) => (
 const CharacterStats = (props) => {
     const stats = [
         {
-            imageSrc: "/icon/cryptocurrency-02.svg",
+            imageSrc: {iconStrength},
             altText: "Strength",
             statName: "Сила",
             statValue: props.character.strength,
         },
         {
-            imageSrc: "/icon/cryptocurrency-01.svg",
+            imageSrc: {iconDexterity},
             altText: "Ловкость",
             statName: "Ловкость",
             statValue: props.character.dexterity,
         },
         {
-            imageSrc: "/icon/cryptocurrency-00.svg",
+            imageSrc: {iconIntelligence},
             altText: "Интелект",
             statName: "Интелект",
             statValue: props.character.intelligence,
         },
         {
-            imageSrc: "/icon/user-01.svg",
+            imageSrc: {iconConstitution},
             altText: "Телосложение",
             statName: "Телосложение",
             statValue: props.character.constitution,
         },
         {
-            imageSrc: "/icon/graduation-hat-01.svg",
+            imageSrc: {iconWisdom},
             altText: "Мудрость",
             statName: "Мудрость",
             statValue: props.character.wisdom,
         },
         {
-            imageSrc: "/icon/face-happy.svg",
+            imageSrc: {iconCharisma},
             altText: "Харизма",
             statName: "Харизма",
             statValue: props.character.charisma,
         },
         {
-            imageSrc: "/icon/coins-stacked-02.svg",
+            imageSrc: {iconGold},
             altText: "Золото",
             statName: "Золото",
             statValue: props.character.gold,
         },
         {
-            imageSrc: "/icon/coins-hand.svg",
+            imageSrc: {iconMetaCoins},
             altText: "Мета монета",
             statName: "Мета монета",
             statValue: props.character.metaCoins,
         },
         {
-            imageSrc: "/icon/shield-01.svg",
+            imageSrc: {iconArmor},
             altText: "Броня",
             statName: "Броня",
             statValue: props.character.armor,
         },
         {
-            imageSrc: "/icon/heart.svg",
+            imageSrc: {iconHealth},
             altText: "Хп",
             statName: "Хп",
             statValue: props.character.health,
