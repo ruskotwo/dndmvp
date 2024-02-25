@@ -39,7 +39,7 @@ export default class App extends React.Component {
             return;
         }
 
-        this.ws = new WebSocket("ws://" + window.location.host + "/ws/game");
+        this.ws = new WebSocket("ws://dnd.igc.su:4000/ws/game");
 
         this.ws.onopen = this.onWSOpen;
         this.ws.onclose = this.onWSClose;

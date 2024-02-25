@@ -30,7 +30,7 @@ const CharacterStats = (props) => {
             statValue: props.character.strength,
         },
         {
-            imageSrc: iconStrength,
+            imageSrc: iconDexterity,
             altText: "Ловкость",
             statName: "Ловкость",
             statValue: props.character.dexterity,
