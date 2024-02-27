@@ -85,7 +85,9 @@ export default function CharacterCard(props) {
                     <AttributeTable key="attributeTable" character={props.character}/>
                 </Collapsible>
                 <Collapsible key="inventory" label='Инвентарь'>
-                    {props.items.map(item => <ItemCard key={item.id} item={item}/>)}
+                    {props.items
+                        .filter(item => item.count > 0)
+                        .map(item => <ItemCard key={item.id} item={item}/>)}
                 </Collapsible>
                 <Collapsible label='Заметки'>
                     <textarea

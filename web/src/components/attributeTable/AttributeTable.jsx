@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import './AttributeTable.css'
 import iconStrength from '../../icons/cryptocurrency-02.svg'
 import iconDexterity from '../../icons/cryptocurrency-01.svg'
@@ -11,8 +11,8 @@ import iconMetaCoins from '../../icons/coins-hand.svg'
 import iconArmor from '../../icons/shield-01.svg'
 import iconHealth from '../../icons/heart.svg'
 
-const StatItem = ({ imageSrc, altText, statName, statValue }) => (
-    <div className="stat-item">
+const StatItem = ({ imageSrc, altText, statName, statValue, onClick, isSelected }) => (
+    <div className={`stat-item ${isSelected ? 'selected' : ''}`} onClick={onClick}>
         <div className="stat-icon-text">
             <img loading="lazy" src={imageSrc} alt={altText} className="stat-icon" />
             <div className="stat-name">{statName}</div>
@@ -22,6 +22,8 @@ const StatItem = ({ imageSrc, altText, statName, statValue }) => (
 );
 
 const CharacterStats = (props) => {
+    const [selectedItem, setSelectedItem] = useState(null);
+
     const stats = [
         {
             imageSrc: iconStrength,
@@ -31,59 +33,58 @@ const CharacterStats = (props) => {
         },
         {
             imageSrc: iconDexterity,
-            altText: "Ловкость",
+            altText: "Dexterity",
             statName: "Ловкость",
             statValue: props.character.dexterity,
         },
         {
             imageSrc: iconIntelligence,
-            altText: "Интелект",
+            altText: "Intelligence",
             statName: "Интелект",
             statValue: props.character.intelligence,
         },
         {
             imageSrc: iconConstitution,
-            altText: "Телосложение",
+            altText: "Constitution",
             statName: "Телосложение",
             statValue: props.character.constitution,
         },
         {
             imageSrc: iconWisdom,
-            altText: "Мудрость",
+            altText: "Wisdom",
             statName: "Мудрость",
             statValue: props.character.wisdom,
         },
         {
             imageSrc: iconCharisma,
-            altText: "Харизма",
+            altText: "Charisma",
             statName: "Харизма",
             statValue: props.character.charisma,
         },
         {
             imageSrc: iconGold,
-            altText: "Золото",
+            altText: "Gold",
             statName: "Золото",
             statValue: props.character.gold,
         },
         {
             imageSrc: iconMetaCoins,
-            altText: "Мета монета",
+            altText: "Meta Coins",
             statName: "Мета монета",
             statValue: props.character.metaCoins,
         },
         {
             imageSrc: iconArmor,
-            altText: "Броня",
+            altText: "Armor",
             statName: "Броня",
             statValue: props.character.armor,
         },
         {
             imageSrc: iconHealth,
-            altText: "Хп",
+            altText: "Health",
             statName: "Хп",
             statValue: props.character.health,
         },
-        // Add other stats following the same structure
     ];
 
     return (
@@ -95,6 +96,8 @@ const CharacterStats = (props) => {
                     altText={altText}
                     statName={statName}
                     statValue={statValue}
+                    onClick={() => setSelectedItem(statName)}
+                    isSelected={selectedItem === statName}
                 />
             ))}
         </div>

@@ -16,12 +16,17 @@ textarea {
 .game-content {
   width: 100%;
 }
+.game-content-title{
+  text-align: center;
+  color: white;
+
+}
 .App {
   display: flex;
   background: var(--1-color-modes-colors-background-bg-primary);
   min-height: 100vh;
   justify-content: center;
-  padding: 12px;
+  padding: 0 12px 12px;
   border: 0;
 }
 
