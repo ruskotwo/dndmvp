@@ -2,9 +2,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border: 1px solid #1F242F;
-    background-color: #161B26;
-    border-radius: 8px;
+    background-color: var(--1-color-modes-colors-background-bg-secondary);
+    border: 1px solid;
+    border-color: var(--1-color-modes-colors-border-border-primary);
+    border-radius: var(--2-radius-radius-md);
     padding: 8px;
     font-size: 14px;
     line-height: 20px; /* 143% of 14px */

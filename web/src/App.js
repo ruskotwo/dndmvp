@@ -48,10 +48,10 @@ export default class App extends React.Component {
     }
 
     onWSOpen = () => {
-        console.log("Open");
+        console.log('connected');
     };
     onWSClose = () => {
-        console.log("Close");
+        console.log('disconnected');
         this.ws = null;
         setTimeout(this.initWS, 10000);
     };
@@ -177,7 +177,6 @@ export default class App extends React.Component {
 
         return (<div className="App" data-1-color-modes-mode="dark-mode">
                 <div className="game-content">
-                    <h3 className='game-content-title'>{this.state.game.name}</h3>
                     <TabbedView tabs={tabs}/>
                 </div>
             </div>);

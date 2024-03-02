@@ -10,24 +10,22 @@
     display: flex;
     overflow-x: auto;
     white-space: nowrap;
-    margin-bottom: 12px;
     position: sticky;
     padding-top: 12px;
     top: 0;
     z-index: 1;
-    background-color: var(--Colors-Background-bg-primary, #0C111D);
+    background-color: #0C111D;
 }
 
 .tabbed-view-tab {
-    padding: 8px;
+    padding: 12px;
     margin-right: 12px;
     margin-bottom: 12px;
     color: white;
     cursor: pointer;
     white-space: nowrap;
-    border-radius: var(--radius-sm, 6px);
-    border: 1px solid var(--Colors-Border-border-primary, #333741);
-    background: var(--Colors-Background-bg-primary, #0C111D);
+    border-radius: var(--2-radius-radius-md);
+    background: #161B26;
 }
 
 

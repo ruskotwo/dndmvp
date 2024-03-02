@@ -6,7 +6,6 @@ textarea {
   border: none;
   overflow: auto;
   outline: none;
-
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -38,7 +37,7 @@ ul{
   margin: 0;
 }
 .game-content-description{
-  margin: 0 0 12px;
+  margin: 0;
   color: white;
   font-family: var(--text-sm-medium-font-family);
   font-size: var(--text-sm-medium-font-size);
@@ -47,6 +46,9 @@ ul{
   letter-spacing: var(--text-sm-medium-letter-spacing);
   line-height: var(--text-sm-medium-line-height);
   white-space: pre-wrap;
+  padding: 12px;
+  border-radius: 6px;
+  background: #161B26;
 }
 
 @media (max-width: 544px) {
