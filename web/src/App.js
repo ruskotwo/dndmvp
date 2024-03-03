@@ -110,41 +110,43 @@ export default class App extends React.Component {
     };
 
     render() {
-        const tabs = [{
-            label: "Описание", content: (<p className="game-content-description">
-                {this.state.game.description === null ? "Описание отсутствует" : this.state.game.description}
-            </p>),
-        }, {
-            label: "Карта", content: (<div>
-                <h1 style={{color: '#fff'}}>Тут будет карта, но мы ее не сделали</h1>
-            </div>),
-        }, {
-            label: "Инвентарь & Персонажи", content: (<div>
-                <Collapsible key="inventoryGuild" label='Инвентарь гильдии'>
-                    {this.state.items.map((item, index) => item.ownerId === 0 ? <ItemCard key={index} item={item}/> : null)}
-                </Collapsible>
-                <Collapsible key="characters" label='Персонажи'>
-                    {this.state.characters.map((character, index) => (
-                        character.name && character.name.trim() !== "" && (
-                            <CharacterCard
-                                key={index}
-                                items={this.state.items.filter((item) => item.ownerId === character.id)}
-                                character={character}
-                            />
-                        )
-                    ))}
-                </Collapsible>
-            </div>)
-        }, {
-            label: "Боссы", content: (<div>
-                <h1 style={{color: '#fff'}}>Тут будут Боссы, но мы их не сделали</h1>
-            </div>),
-        }, {
-            label: "Нейтральные персонажи",
-            content: (<div>
-                <h1 style={{color: '#fff'}}>Тут будут Нейтральные персонажи, но мы их не сделали</h1>
-            </div>),
-        },];
+        const tabs = [
+            {
+                label: "Описание", content: (<p className="game-content-description">
+                    {this.state.game.description === null ? "Описание отсутствует" : this.state.game.description}
+                </p>),
+            }, {
+                label: "Карта", content: (<div>
+                    <h1 style={{color: '#fff'}}>Тут будет карта, но мы ее не сделали</h1>
+                </div>),
+            }, {
+                label: "Инвентарь & Персонажи", content: (<div>
+                    <Collapsible key="inventoryGuild" label='Инвентарь гильдии'>
+                        {this.state.items.map((item, index) => item.ownerId === 0 ? <ItemCard key={index} item={item}/> : null)}
+                    </Collapsible>
+                    <Collapsible key="characters" label='Персонажи'>
+                        {this.state.characters.map((character, index) => (
+                            character.name && character.name.trim() !== "" && (
+                                <CharacterCard
+                                    key={index}
+                                    items={this.state.items.filter((item) => item.ownerId === character.id)}
+                                    character={character}
+                                />
+                            )
+                        ))}
+                    </Collapsible>
+                </div>)
+            }, {
+                label: "Боссы", content: (<div>
+                    <h1 style={{color: '#fff'}}>Тут будут Боссы, но мы их не сделали</h1>
+                </div>),
+            }, {
+                label: "Нейтральные персонажи",
+                content: (<div>
+                    <h1 style={{color: '#fff'}}>Тут будут Нейтральные персонажи, но мы их не сделали</h1>
+                </div>),
+            },
+        ];
 
         return (<div className="App" data-1-color-modes-mode="dark-mode">
             <div className="game-content">
